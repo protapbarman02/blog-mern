@@ -6,5 +6,8 @@ const { roleController } = resolveControllers();
 
 router.post("/", roleController.createRole.bind(roleController));
 router.get("/", roleController.getRoles.bind(roleController));
+router.get("/:id", roleController.getRole.bind(roleController));
+router.patch("/:id", roleController.updateActiveStatus.bind(roleController));
+router.delete("/:id", roleController.delete.bind(roleController));
 
 export default router;

@@ -9,4 +9,7 @@ export class CommentRepositoryImpl
   constructor(entity: any) {
     super(entity);
   }
+  // async getCommentsByPost(postId: any) {
+  //   return await this.entity.find({postId}).populate('post');
+  // }
 }

@@ -27,4 +27,28 @@ export class UserController {
     const users: any = await this.userService.getUsers(req);
     res.json(new SuccessResponse("S-10001", users));
   }
+
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async getUser(req: any, res: Response): Promise<void> {
+    const users: User = await this.userService.getUser(req);
+    res.json(new SuccessResponse("S-10001", users));
+  }
+
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async updateActiveStatus(req: any, res: Response): Promise<void> {
+    const users: User = await this.userService.updateActiveStatus(req);
+    res.json(new SuccessResponse("S-10001", users));
+  }
+
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async delete(req: any, res: Response): Promise<void> {
+    const users: User = await this.userService.delete(req);
+    res.json(new SuccessResponse("S-10001", users));
+  }
 }

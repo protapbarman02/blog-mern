@@ -3,6 +3,7 @@ import { User } from './user.model';
 
 export interface Post extends Document {
   title : string;
+  content : string;
   images : [string];
   author : Schema.Types.ObjectId | User;
   created_at : Date;
@@ -14,6 +15,7 @@ export interface Post extends Document {
 
 const postSchema : Schema = new Schema({
   title : { type: String, required : true },
+  content : { type: String, required : true },
   images : { type : [String], required : true },
   author : { type: Schema.Types.ObjectId, ref: "users", required: true },
   created_at : { type : Date, default : Date.now },
