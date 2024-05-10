@@ -83,7 +83,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"first_name\": \"Bipasha\",\r\n  \"last_name\": \"Bagchi\",\r\n  \"age\": 20,\r\n  \"email\": \"bipashabagchi123@gmail.com\",\r\n  \"password\": \"abcd\",\r\n  \"profile_pic\": \"static/profile-img-bipasha.jpeg\",\r\n  \"bio\":\"sleeping\"\r\n}",
+							"raw": "{\r\n  \"first_name\": \"Sujit\",\r\n  \"last_name\": \"Das\",\r\n  \"age\": 21,\r\n  \"email\": \"sujitdas@gmail.com\",\r\n  \"password\": \"abcd\",\r\n  \"profile_pic\": \"static/profile-img-sujit.jpeg\",\r\n  \"bio\":\"cooking\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -172,6 +172,50 @@
 								"v1",
 								"users",
 								"663a452676cd0ed394fc3624"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"_id\":\"663e4c3ae0a990ceb2cfcd5a\",\r\n  \"first_name\": \"Sujit\",\r\n  \"last_name\": \"Kumar Das\",\r\n  \"age\": 20,\r\n  \"email\": \"sujitdas2004@gmail.com2\",\r\n  \"password\": \"abcd\",\r\n  \"profile_pic\": \"static/profile-img-sujit.jpeg\",\r\n  \"bio\":\"not sleeping\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
 							]
 						}
 					},
@@ -274,7 +318,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"user_id\": \"663a3dd9d5f5f21f758fad12\",\r\n  \"role\": \"admin\",\r\n  \"is_active\":true\r\n}",
+							"raw": "{\r\n  \"user_id\": \"663e4ba3165827098e0ab4de\",\r\n  \"role\": \"customer\",\r\n  \"is_active\":true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -363,6 +407,50 @@
 								"v1",
 								"roles",
 								"663e37a88cf736f07b6c2ddd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"_id\":\"663e37a88cf736f07b6c2ddd\",\r\n  \"user_id\": \"663a3dd9d5f5f21f758fad12\",\r\n  \"role\": \"customer\",\r\n  \"is_active\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/roles/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"roles",
+								""
 							]
 						}
 					},
@@ -569,6 +657,50 @@
 					"response": []
 				},
 				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"_id\":\"663a3f053a9e84b2dc66b25f\",\r\n  \"title\":\"this is my new macbook5\",\r\n  \"content\":\"i love macbook5\",\r\n  \"images\":[\"static/bottle-img.jpg\"],\r\n  \"is_active\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/posts/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "delete",
 					"request": {
 						"auth": {
@@ -759,6 +891,50 @@
 								"v1",
 								"comments",
 								"663a5a11443b0f92ff075bca"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"_id\":\"663a5a11443b0f92ff075bca\",\r\n  \"content\":\"where did you buy this shit\",\r\n  \"post\":\"663a4490fe79c019e93d9a6a\",\r\n  \"is_active\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/comments/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"comments",
+								""
 							]
 						}
 					},
