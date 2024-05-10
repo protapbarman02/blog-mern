@@ -3,6 +3,7 @@ import { TYPES } from "../../types";
 import { Like } from "../../models/like.model";
 import { Repositories } from "../../dataAccess/repositories";
 import { LikeService } from "../like.service";
+import { GetLikeResDto } from "../../dtos/like.dto";
 
 @injectable()
 export class LikeServiceImpl implements LikeService {
@@ -21,13 +22,40 @@ export class LikeServiceImpl implements LikeService {
 
   async getLikes(req: any): Promise<any> {
     const res: any = await this.repo.likes.get(req);
-    const like: Like[] = res.data;
+    const like: Like[] = res.data.map(
+      (like: any) =>
+        new GetLikeResDto(
+          like._id,
+          like.user,
+          like.post,
+          like.created_at,
+          like.is_active
+        )
+    );
 
     return { like, ...res.page_info };
   }
 
   async getLike(req: any): Promise<any> {
-    const like: any = await this.repo.likes.getById(req.params.id);
+    const res: any = await this.repo.likes.getById(req.params.id);
+    const like : GetLikeResDto = new GetLikeResDto(
+      res._id,
+      res.user,
+      res.post,
+      res.created_at,
+      res.is_active
+    )
     return like;
   }
+
+  async updateActiveStatus(req: any): Promise<any> {
+    const like: any = await this.repo.likes.updateActiveStatus(req.params.id, req.body.is_active);
+    return like;
+  }
+
+  async delete(req: any): Promise<any> {
+    const like: any = await this.repo.likes.delete(req.params.id);
+    return like;
+  }
+  
 }

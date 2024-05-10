@@ -36,4 +36,20 @@ export class PostController {
     const posts: Post = await this.postService.getPost(req);
     res.json(new SuccessResponse("S-10001", posts));
   }
+
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async updateActiveStatus(req: any, res: Response): Promise<void> {
+    const posts: Post = await this.postService.updateActiveStatus(req);
+    res.json(new SuccessResponse("S-10001", posts));
+  }
+
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async delete(req: any, res: Response): Promise<void> {
+    const posts: Post = await this.postService.delete(req);
+    res.json(new SuccessResponse("S-10001", posts));
+  }
 }

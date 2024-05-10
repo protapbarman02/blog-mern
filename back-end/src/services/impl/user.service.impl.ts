@@ -21,10 +21,53 @@ export class UserServiceImpl implements UserService {
 
   async getUsers(req: any): Promise<any> {
     const res: any = await this.repo.users.get(req);
-    const users: GetUserResDto[] = res.data; /*.map(
-      (user: any) => new GetUserResDto(user.name, user.age, user.is_active)
-    );*/
+    const users: GetUserResDto[] = res.data.map(
+      (user: any) => new GetUserResDto(
+        user._id, 
+        user.first_name, 
+        user.last_name, 
+        user.age, 
+        user.bio, 
+        user.profile_pic, 
+        user.email, 
+        user.password, 
+        user.created_at,
+        user.is_active,
+        `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${user._id}`
+      )
+    );
 
     return { users, ...res.page_info };
   }
+
+  
+  async getUser(req: any): Promise<any> {
+    const res: any = await this.repo.users.getById(req.params.id);
+    const user : GetUserResDto = new GetUserResDto(
+      res._id, 
+      res.first_name, 
+      res.last_name, 
+      res.age, 
+      res.bio, 
+      res.profile_pic, 
+      res.email, 
+      res.password, 
+      res.created_at,
+      res.is_active,
+      `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${res._id}`
+    )
+    return user;
+  }
+  
+  async updateActiveStatus(req: any): Promise<any> {
+    const user: any = await this.repo.users.updateActiveStatus(req.params.id, req.body.is_active);
+    return user;
+  }
+
+  async delete(req: any): Promise<any> {
+    const user: any = await this.repo.users.delete(req.params.id);
+    return user;
+  }
+  
+
 }

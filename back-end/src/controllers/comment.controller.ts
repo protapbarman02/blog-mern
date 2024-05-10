@@ -36,4 +36,20 @@ export class CommentController {
     const comments: Comment = await this.commentService.getComment(req);
     res.json(new SuccessResponse("S-10001", comments));
   }
+
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async updateActiveStatus(req: any, res: Response): Promise<void> {
+    const comments: Comment = await this.commentService.updateActiveStatus(req);
+    res.json(new SuccessResponse("S-10001", comments));
+  }
+
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async delete(req: any, res: Response): Promise<void> {
+    const comments: Comment = await this.commentService.delete(req);
+    res.json(new SuccessResponse("S-10001", comments));
+  }
 }
