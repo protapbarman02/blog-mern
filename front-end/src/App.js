@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Card from './components/Card';
+import Sidebar from './components/Sidebar';
 
 function App() {
+  const today = new Date().toLocaleDateString('en-GB');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header/>
+      <div className='container-fluid' style={{ marginTop:50+'px', overflowY:'scroll' }}>
+        <div className='row'>
+          <div className='col-2 border-end' style={{ height: 'calc(100vh - 100px)' }}>
+            <Sidebar/>
+          </div>
+          <div className='col-10'>
+            <Card/>
+          </div>
+        </div>
+      </div>
+      <Footer today={today}/>
+    </>
   );
 }
 
