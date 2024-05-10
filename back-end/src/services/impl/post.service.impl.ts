@@ -22,7 +22,7 @@ export class PostServiceImpl implements PostService {
 
   async getPosts(req: any): Promise<any> {
     const res: any = await this.repo.posts.get(req);
-    const post: Post[] = res.data.map(
+    const post: Post[] = res.data;/*map(
       (post: any) =>
         new GetPostResDto(
           post._id,
@@ -34,7 +34,7 @@ export class PostServiceImpl implements PostService {
           post.is_active,
           `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${post._id}`
         )
-    );
+    );*/
     return { post, ...res.page_info };
   }
 
@@ -63,4 +63,12 @@ export class PostServiceImpl implements PostService {
     return post;
   }
   
+  async update(req: any): Promise<any> {
+    const data: Post = req.body;
+    data.updated_by = req.user.userId;
+    data.updated_at = new Date();
+    const post: any = await this.repo.posts.update(data);
+    return post;
+  }
+
 }

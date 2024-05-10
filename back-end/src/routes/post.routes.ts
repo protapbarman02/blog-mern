@@ -9,5 +9,6 @@ router.get("/", postController.getPosts.bind(postController));
 router.get("/:id", postController.getPost.bind(postController));
 router.patch("/:id", postController.updateActiveStatus.bind(postController));
 router.delete("/:id", postController.delete.bind(postController));
+router.put("/", postController.update.bind(postController));
 
 export default router;

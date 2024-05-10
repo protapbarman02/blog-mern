@@ -61,7 +61,15 @@ export class CommentServiceImpl implements CommentService {
     const comment: any = await this.repo.comments.delete(req.params.id);
     return comment;
   }
-  
+    
+  async update(req: any): Promise<any> {
+    const data: Comment = req.body;
+    data.updated_by = req.user.userId;
+    data.updated_at = new Date();
+    const comment: any = await this.repo.comments.update(data);
+    return comment;
+  }
+
   // async getCommentsByPost(postId: any): Promise<any> {
   //   const comments: any = await this.repo.comments.getCommentsByPost(postId);
   //   return comments;

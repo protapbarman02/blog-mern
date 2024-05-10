@@ -4,5 +4,6 @@ export interface PostService {
     getPost(req: any): Promise<any>;
     updateActiveStatus(req: any): Promise<any>;
     delete(req: any): Promise<any>;
+    update(req: any): Promise<any>;
   }
   

@@ -38,7 +38,7 @@ export class LikeController {
   }
 
   @catchError
-  // @loginRequired
+  @loginRequired
   // @roleRequired("customer")
   async updateActiveStatus(req: any, res: Response): Promise<void> {
     const likes: Like = await this.likeService.updateActiveStatus(req);
@@ -46,7 +46,7 @@ export class LikeController {
   }
 
   @catchError
-  // @loginRequired
+  @loginRequired
   // @roleRequired("customer")
   async delete(req: any, res: Response): Promise<void> {
     const likes: Like = await this.likeService.delete(req);

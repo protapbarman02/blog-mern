@@ -9,5 +9,6 @@ router.get("/", roleController.getRoles.bind(roleController));
 router.get("/:id", roleController.getRole.bind(roleController));
 router.patch("/:id", roleController.updateActiveStatus.bind(roleController));
 router.delete("/:id", roleController.delete.bind(roleController));
+router.put("", roleController.update.bind(roleController));
 
 export default router;
