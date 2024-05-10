@@ -32,24 +32,31 @@ export class RoleController {
   // @loginRequired
   // @roleRequired("customer")
   async getRole(req: any, res: Response): Promise<void> {
-    const roles: Role = await this.roleService.getRole(req);
-    res.json(new SuccessResponse("S-10001", roles));
+    const role: Role = await this.roleService.getRole(req);
+    res.json(new SuccessResponse("S-10001", role));
   }
 
   @catchError
-  // @loginRequired
-  // @roleRequired("customer")
+  @loginRequired
+  // @roleRequired("admin")
   async updateActiveStatus(req: any, res: Response): Promise<void> {
-    const roles: Role = await this.roleService.updateActiveStatus(req);
-    res.json(new SuccessResponse("S-10001", roles));
+    const role: Role = await this.roleService.updateActiveStatus(req);
+    res.json(new SuccessResponse("S-10001", role));
   }
 
   @catchError
-  // @loginRequired
-  // @roleRequired("customer")
+  @loginRequired
+  // @roleRequired("admin")
   async delete(req: any, res: Response): Promise<void> {
-    const roles: Role = await this.roleService.delete(req);
-    res.json(new SuccessResponse("S-10001", roles));
+    const role: Role = await this.roleService.delete(req);
+    res.json(new SuccessResponse("S-10001", role));
   }
 
+  @catchError
+  @loginRequired
+  // @roleRequired("admin")
+  async update(req: any, res: Response): Promise<void> {
+    const role: Role = await this.roleService.update(req);
+    res.json(new SuccessResponse("S-10001", role));
+  }
 }

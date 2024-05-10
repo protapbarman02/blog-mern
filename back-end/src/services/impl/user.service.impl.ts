@@ -15,7 +15,6 @@ export class UserServiceImpl implements UserService {
   async createUser(req: any): Promise<any> {
     const data: User = req.body;
     data.created_at = new Date();
-    // data.created_by = req.user.userId ? req.user.userId: null ;
     return await this.repo.users.create(data);
   }
 
@@ -69,5 +68,11 @@ export class UserServiceImpl implements UserService {
     return user;
   }
   
-
+  async update(req: any): Promise<any> {
+    const data: User = req.body;
+    data.updated_by = req.user.userId;
+    data.updated_at = new Date();
+    const user: any = await this.repo.users.update(data);
+    return user;
+  }
 }

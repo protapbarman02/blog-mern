@@ -32,23 +32,32 @@ export class UserController {
   // @loginRequired
   // @roleRequired("customer")
   async getUser(req: any, res: Response): Promise<void> {
-    const users: User = await this.userService.getUser(req);
-    res.json(new SuccessResponse("S-10001", users));
+    const user: User = await this.userService.getUser(req);
+    res.json(new SuccessResponse("S-10001", user));
   }
 
   @catchError
-  // @loginRequired
+  @loginRequired
   // @roleRequired("customer")
   async updateActiveStatus(req: any, res: Response): Promise<void> {
-    const users: User = await this.userService.updateActiveStatus(req);
-    res.json(new SuccessResponse("S-10001", users));
+    const user: User = await this.userService.updateActiveStatus(req);
+    res.json(new SuccessResponse("S-10001", user));
   }
 
   @catchError
-  // @loginRequired
+  @loginRequired
   // @roleRequired("customer")
   async delete(req: any, res: Response): Promise<void> {
-    const users: User = await this.userService.delete(req);
-    res.json(new SuccessResponse("S-10001", users));
+    const user: User = await this.userService.delete(req);
+    res.json(new SuccessResponse("S-10001", user));
   }
+
+  @catchError
+  @loginRequired
+  // @roleRequired("customer")
+  async update(req: any, res: Response): Promise<void> {
+    const user: User = await this.userService.update(req);
+    res.json(new SuccessResponse("S-10001", user));
+  }
+
 }

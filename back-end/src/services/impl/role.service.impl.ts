@@ -14,7 +14,6 @@ export class RoleServiceImpl implements RoleService {
 
   async createRole(req: any): Promise<any> {
     const data: Role = req.body;
-    console.log(req.user)
     data.created_by = req.user.userId;
     data.created_at = new Date();
     return await this.repo.roles.create(data);
@@ -55,6 +54,14 @@ export class RoleServiceImpl implements RoleService {
 
   async delete(req: any): Promise<any> {
     const role: any = await this.repo.roles.delete(req.params.id);
+    return role;
+  }
+
+  async update(req: any): Promise<any> {
+    const data: Role = req.body;
+    data.updated_by = req.user.userId;
+    data.updated_at = new Date();
+    const role: any = await this.repo.roles.update(data);
     return role;
   }
 

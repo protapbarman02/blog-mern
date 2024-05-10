@@ -9,5 +9,6 @@ router.get("/", userController.getUsers.bind(userController));
 router.get("/:id", userController.getUser.bind(userController));
 router.patch("/:id", userController.updateActiveStatus.bind(userController));
 router.delete("/:id", userController.delete.bind(userController));
+router.put("/", userController.update.bind(userController));
 
 export default router;

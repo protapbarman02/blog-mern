@@ -9,9 +9,9 @@ export interface User extends Document {
   profile_pic: string;
   bio: string;
   created_at : Date;
-  // created_by : Schema.Types.ObjectId | User;
-  // updated_at : Date;
-  // updated_by : Schema.Types.ObjectId | User;
+  created_by : Schema.Types.ObjectId | User;
+  updated_at : Date;
+  updated_by : Schema.Types.ObjectId | User;
   is_active: boolean;
 }
 
@@ -24,9 +24,9 @@ const userSchema: Schema = new Schema({
   profile_pic : { type : String},
   bio : { type : String},
   created_at : { type : Date, default : Date.now },
-  // created_by : { type: Schema.Types.ObjectId, ref: "users" },
-  // updated_at : { type : Date },
-  // updated_by : { type: Schema.Types.ObjectId, ref: "users" },
+  created_by : { type: Schema.Types.ObjectId, ref: "users" },
+  updated_at : { type : Date },
+  updated_by : { type: Schema.Types.ObjectId, ref: "users" },
   is_active: { type: Boolean, required: true, default: true },
 });
 

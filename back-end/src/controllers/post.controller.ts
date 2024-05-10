@@ -38,7 +38,7 @@ export class PostController {
   }
 
   @catchError
-  // @loginRequired
+  @loginRequired
   // @roleRequired("customer")
   async updateActiveStatus(req: any, res: Response): Promise<void> {
     const posts: Post = await this.postService.updateActiveStatus(req);
@@ -46,10 +46,19 @@ export class PostController {
   }
 
   @catchError
-  // @loginRequired
+  @loginRequired
   // @roleRequired("customer")
   async delete(req: any, res: Response): Promise<void> {
     const posts: Post = await this.postService.delete(req);
     res.json(new SuccessResponse("S-10001", posts));
   }
+
+  @catchError
+  @loginRequired
+  // @roleRequired("customer")
+  async update(req: any, res: Response): Promise<void> {
+    const posts: Post = await this.postService.update(req);
+    res.json(new SuccessResponse("S-10001", posts));
+  }
+
 }
