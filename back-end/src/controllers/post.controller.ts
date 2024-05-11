@@ -3,6 +3,8 @@ import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
 import { Post } from "../models/post.model";
 import { PostService } from "../services/post.service";
+import { CommentService } from "../services/comment.service";
+import { LikeService } from "../services/like.service";
 import { catchError } from "../utils/error.handler";
 import { SuccessResponse } from "../dtos/common.dto";
 import { loginRequired, roleRequired } from "../utils/auth.helper";
@@ -11,7 +13,11 @@ import { loginRequired, roleRequired } from "../utils/auth.helper";
 export class PostController {
   constructor(
     @inject(TYPES.PostService)
-    private postService: PostService
+    private postService: PostService,
+    @inject(TYPES.CommentService)
+    private commentService: CommentService,
+    @inject(TYPES.LikeService)
+    private likeService: LikeService,
   ) {}
 
   @catchError
@@ -25,7 +31,7 @@ export class PostController {
   // @loginRequired
   // @roleRequired("customer")
   async getPosts(req: any, res: Response): Promise<void> {
-    const posts: Post = await this.postService.getPosts(req);
+    const posts: any = await this.postService.getPosts(req);
     res.json(new SuccessResponse("S-10001", posts));
   }
 
@@ -33,7 +39,7 @@ export class PostController {
   // @loginRequired
   // @roleRequired("customer")
   async getPost(req: any, res: Response): Promise<void> {
-    const posts: Post = await this.postService.getPost(req);
+    const posts: any = await this.postService.getPost(req);
     res.json(new SuccessResponse("S-10001", posts));
   }
 
@@ -61,4 +67,20 @@ export class PostController {
     res.json(new SuccessResponse("S-10001", posts));
   }
 
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async getCommentsByPostId(req: any, res: Response): Promise<void> {
+    const comments: any = await this.commentService.getByPostId(req);
+    res.json(new SuccessResponse("S-10001", comments));
+  }
+
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async getLikesByPostId(req: any, res: Response): Promise<void> {
+    const likes: any = await this.likeService.getByPostId(req);
+    res.json(new SuccessResponse("S-10001", likes));
+  }
 }
+

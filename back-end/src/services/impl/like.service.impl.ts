@@ -58,4 +58,20 @@ export class LikeServiceImpl implements LikeService {
     return like;
   }
   
+  async getByPostId(req: any): Promise<any> {
+    const res: any = await this.repo.likes.getByPostId(req);
+    const likes: any = res.data.map(
+      (like: any) =>
+        new GetLikeResDto(
+          like._id,
+            like.user,
+            like.post,
+            like.created_at,
+            like.is_active
+        )
+    );
+
+    return { likes, ...res.page_info };
+  }
+
 }

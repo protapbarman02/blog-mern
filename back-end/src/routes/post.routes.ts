@@ -10,5 +10,7 @@ router.get("/:id", postController.getPost.bind(postController));
 router.patch("/:id", postController.updateActiveStatus.bind(postController));
 router.delete("/:id", postController.delete.bind(postController));
 router.put("/", postController.update.bind(postController));
+router.get("/:id/comments", postController.getCommentsByPostId.bind(postController));
+router.get("/:id/likes", postController.getLikesByPostId.bind(postController));
 
 export default router;

@@ -23,7 +23,7 @@ export class BaseRepositoryImpl<Model> implements BaseRepository<Model> {
       : null;
 
     // get url
-    const url: string = req.originalUrl;
+    const url: string = req.originalUrl.replace(/^\/api/, '');
 
     // query
     let query: any = this.entity.find();
@@ -59,7 +59,13 @@ export class BaseRepositoryImpl<Model> implements BaseRepository<Model> {
     // filter
     if (filter) {
       const filterItems: any[] = JSON.parse(filter);
-      query = query.find(...filterItems);
+      const filterObject: Record<string, any> = {};
+      for (const filterItem of filterItems) {
+        for (const [fieldName, filterValue] of Object.entries(filterItem)) {
+          filterObject[fieldName] = filterValue;
+        }
+      }
+      query = query.find(filterObject);
     }
 
     // get total
@@ -91,7 +97,8 @@ export class BaseRepositoryImpl<Model> implements BaseRepository<Model> {
             url.indexOf("&", url.indexOf("page=")),
             url.length
           )}`;
-
+    console.log(prev_page)
+    
     // next page url
     const next_page =
       page === null || limit === null || total_page < page + 1
@@ -102,6 +109,7 @@ export class BaseRepositoryImpl<Model> implements BaseRepository<Model> {
             url.indexOf("&", url.indexOf("page=")),
             url.length
           )}`;
+    console.log(next_page)
 
     return {
       data: items,

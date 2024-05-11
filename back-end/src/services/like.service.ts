@@ -4,5 +4,6 @@ export interface LikeService {
     getLike(req: any): Promise<any>;
     updateActiveStatus(req: any): Promise<any>;
     delete(req: any): Promise<any>;
+    getByPostId( req: any ): Promise<any>;
   }
   

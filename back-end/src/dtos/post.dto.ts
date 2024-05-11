@@ -1,4 +1,4 @@
-import { IsNumber, IsString, IsBoolean, IsArray, IsDate } from "class-validator";
+import { IsNumber, IsString, IsBoolean, IsArray, IsDate, IsObject } from "class-validator";
 
 export class GetPostResDto {
   @IsString()
@@ -9,6 +9,12 @@ export class GetPostResDto {
 
   @IsArray()
   public images: string[];
+
+  @IsObject()
+  public comments: object;
+
+  @IsObject()
+  public likes: object;
 
   @IsString()
   public title: string;
@@ -25,11 +31,13 @@ export class GetPostResDto {
   @IsString()
   public url: string;
 
-  constructor(_id:string, author: string,  title: string, content: string, images: string[],  created_at:Date, is_active:Boolean, url : string) {
+  constructor(_id:string, author: string,  title: string, content: string, images: string[], created_at:Date, is_active:Boolean, url : string, comments:object, likes:object) {
     this._id = _id,
     this.author = author;
     this.content = content;
     this.images = images;
+    this.comments = comments;
+    this.likes = likes;
     this.title = title;
     this.created_at = created_at;
     this.is_active = is_active;
