@@ -65,4 +65,8 @@ export class RoleServiceImpl implements RoleService {
     return role;
   }
 
+  async getRoleByUserId(req: any): Promise<any> {
+    const res: any = await this.repo.roles.getRoleByUserId(req.params.id);
+    return res;
+  }
 }

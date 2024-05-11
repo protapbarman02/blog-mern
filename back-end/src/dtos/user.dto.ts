@@ -1,4 +1,4 @@
-import { IsNumber, IsString, IsBoolean, IsDate } from "class-validator";
+import { IsNumber, IsString, IsBoolean, IsDate, IsArray } from "class-validator";
 
 export class GetUserResDto {
   @IsString()
@@ -32,9 +32,12 @@ export class GetUserResDto {
   public is_active: Boolean;
 
   @IsDate()
-  public created_at : Date
+  public created_at : Date;
 
-  constructor(_id : string, first_name : string, last_name : string, age : Number, bio : string, profile_pic : string, email : string, password : string, crated_at : Date, is_active : Boolean, url : string) {
+  @IsArray()
+  public roles : string[];
+
+  constructor(_id : string, first_name : string, last_name : string, age : Number, bio : string, profile_pic : string, email : string, password : string, crated_at : Date, is_active : Boolean, roles:string[], url : string) {
     this._id = _id, 
     this.first_name = first_name, 
     this.last_name = last_name, 
@@ -45,6 +48,7 @@ export class GetUserResDto {
     this.password = password, 
     this.created_at = crated_at,
     this.is_active = is_active,
+    this.roles = roles
     this.url = url
   }
 }
