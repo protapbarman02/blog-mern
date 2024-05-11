@@ -53,7 +53,7 @@ export class UserServiceImpl implements UserService {
       res.password, 
       res.created_at,
       res.is_active,
-      `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${res._id}`
+      `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}`
     )
     return user;
   }

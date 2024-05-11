@@ -47,7 +47,7 @@ export class CommentServiceImpl implements CommentService {
         res.content,
         res.created_at,
         res.is_active,
-        `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${res._id}`
+        `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}`
     );
     return  comment;
   }
@@ -71,8 +71,8 @@ export class CommentServiceImpl implements CommentService {
   }
 
   async getByPostId(req: any): Promise<any> {
-    const res: any = await this.repo.comments.getByPostId(req.params.post_id);
-    const comments: Comment[] = res.map(
+    const res: any = await this.repo.comments.getByPostId(req);
+    const comments: any = res.data.map(
       (comment: any) =>
         new GetCommentResDto(
           comment._id,
@@ -81,7 +81,7 @@ export class CommentServiceImpl implements CommentService {
           comment.content,
           comment.created_at,
           comment.is_active,
-          `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${comment._id}`
+          `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}${comment._id}`
         )
     );
 

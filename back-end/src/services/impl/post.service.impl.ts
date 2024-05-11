@@ -29,9 +29,9 @@ export class PostServiceImpl implements PostService {
   
     const postPromises: Promise<any>[] = res.data.map(
       async (post: any) => {
-        const resComments: any = await this.repo.comments.getByPostId(post._id);
+        const resComments: any = await this.repo.comments.getAllByPostId(post._id);
         
-        const comments: Comment[] = resComments.map(
+        const comments: any = resComments.data.map(
           (comment: any) =>
             new GetCommentResDto(
               comment._id,
@@ -40,20 +40,19 @@ export class PostServiceImpl implements PostService {
               comment.content,
               comment.created_at,
               comment.is_active,
-              `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/").replace("posts", "comments")}/${comment._id}`
+              `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/").replace("posts","comments")}/${comment._id}`
             )
         );
   
-        const resLikes: any = await this.repo.likes.getByPostId(post._id);
-        
-        const likes: Like[] = resLikes.map(
+        const resLikes: any = await this.repo.likes.getAllByPostId(post._id);
+        const likes: any = resLikes.data.map(
           (like: any) =>
             new GetLikeResDto(
               like._id,
               like.user,
               like.post,
               like.created_at,
-              like.is_active,
+              like.is_active
             )
         );
 
@@ -66,8 +65,8 @@ export class PostServiceImpl implements PostService {
           post.created_at,
           post.is_active,
           `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${post._id}`,
-          comments,
-          likes
+          { comments, total:resComments.totalCount },
+          { likes, total:resLikes.totalCount }
         );
     });
   
@@ -77,8 +76,8 @@ export class PostServiceImpl implements PostService {
 
   async getPost(req: any): Promise<any> {
     const res: any = await this.repo.posts.getById(req.params.id);
-    const resComments: any = await this.repo.comments.getByPostId(res._id);
-    const comments: Comment[] = resComments.map(
+    const resComments: any = await this.repo.comments.getByPostId(req);
+    const comments: Comment[] = resComments.data.map(
       (comment: any) =>
         new GetCommentResDto(
           comment._id,
@@ -87,12 +86,12 @@ export class PostServiceImpl implements PostService {
           comment.content,
           comment.created_at,
           comment.is_active,
-          `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/").replace("posts", "comments")}/${comment._id}`
+          `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${comment._id}`
         )
     );
 
-    const resLikes: any = await this.repo.likes.getByPostId(req.params.id);
-    const likes: Like[] = resLikes.map(
+    const resLikes: any = await this.repo.likes.getByPostId(req);
+    const likes: any = resLikes.data.map(
       (like: any) =>
         new GetLikeResDto(
           like._id,
@@ -111,9 +110,9 @@ export class PostServiceImpl implements PostService {
       res.images,
       res.created_at,
       res.is_active,
-      `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${res._id}`,
-      comments,
-      likes
+      `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}`,
+      { comments, ...resComments.page_info },
+      { likes, ...resLikes.page_info }
     );
     return post;
   }

@@ -33,24 +33,24 @@ export class LikeController {
   // @loginRequired
   // @roleRequired("customer")
   async getLike(req: any, res: Response): Promise<void> {
-    const likes: Like = await this.likeService.getLike(req);
-    res.json(new SuccessResponse("S-10001", likes));
+    const like: Like = await this.likeService.getLike(req);
+    res.json(new SuccessResponse("S-10001", like));
   }
 
   @catchError
   @loginRequired
   // @roleRequired("customer")
   async updateActiveStatus(req: any, res: Response): Promise<void> {
-    const likes: Like = await this.likeService.updateActiveStatus(req);
-    res.json(new SuccessResponse("S-10001", likes));
+    const like: Like = await this.likeService.updateActiveStatus(req);
+    res.json(new SuccessResponse("S-10001", like));
   }
 
   @catchError
   @loginRequired
   // @roleRequired("customer")
   async delete(req: any, res: Response): Promise<void> {
-    const likes: Like = await this.likeService.delete(req);
-    res.json(new SuccessResponse("S-10001", likes));
+    const like: Like = await this.likeService.delete(req);
+    res.json(new SuccessResponse("S-10001", like));
   }
 
   @catchError
