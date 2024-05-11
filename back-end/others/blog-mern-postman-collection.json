@@ -25,7 +25,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}api/v1/users?page=1&limit=1",
+							"raw": "{{url}}api/v1/users",
 							"host": [
 								"{{url}}api"
 							],
@@ -36,11 +36,13 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "1"
+									"value": "1",
+									"disabled": true
 								},
 								{
 									"key": "limit",
-									"value": "1"
+									"value": "1",
+									"disabled": true
 								},
 								{
 									"key": "sort",
@@ -365,6 +367,36 @@
 								"v1",
 								"roles",
 								"663e37a88cf736f07b6c2ddd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-user-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/roles/user/663a3dd9d5f5f21f758fad12",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"roles",
+								"user",
+								"663a3dd9d5f5f21f758fad12"
 							]
 						}
 					},
