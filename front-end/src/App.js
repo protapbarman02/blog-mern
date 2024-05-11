@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar';
 
 function App() {
   const today = new Date().toLocaleDateString('en-GB');
+  // const posts= [];
   const posts = [
     {
       id:1,
@@ -15,7 +16,7 @@ function App() {
     },
     {
       id:2,
-      images:['img1.jpg'],
+      images:[],
       title:'This is my new watter bottle',
       content:'Very good bottle, you should buy this also',
       created_at:today
