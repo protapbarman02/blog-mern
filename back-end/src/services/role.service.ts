@@ -5,4 +5,5 @@ export interface RoleService {
   updateActiveStatus(req: any): Promise<any>;
   delete(req: any): Promise<any>;
   update(req: any): Promise<any>;
+  getRoleByUserId(req: any): Promise<any>;
 }

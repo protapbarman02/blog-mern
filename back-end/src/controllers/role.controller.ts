@@ -59,4 +59,13 @@ export class RoleController {
     const role: Role = await this.roleService.update(req);
     res.json(new SuccessResponse("S-10001", role));
   }
+
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async getRoleByUserId(req: any, res: Response): Promise<void> {
+    const role: Role = await this.roleService.getRoleByUserId(req);
+    res.json(new SuccessResponse("S-10001", role));
+  }
+
 }

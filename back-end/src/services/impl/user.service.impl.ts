@@ -20,28 +20,36 @@ export class UserServiceImpl implements UserService {
 
   async getUsers(req: any): Promise<any> {
     const res: any = await this.repo.users.get(req);
-    const users: GetUserResDto[] = res.data.map(
-      (user: any) => new GetUserResDto(
-        user._id, 
-        user.first_name, 
-        user.last_name, 
-        user.age, 
-        user.bio, 
-        user.profile_pic, 
-        user.email, 
-        user.password, 
-        user.created_at,
-        user.is_active,
-        `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${user._id}`
-      )
-    );
 
+    const userPromises: Promise<any>[] = res.data.map(
+      async(user: any) => {
+
+        const roles: any = await this.repo.roles.getRoleByUserId(user.id);
+
+        return new GetUserResDto(
+          user._id, 
+          user.first_name, 
+          user.last_name, 
+          user.age, 
+          user.bio, 
+          user.profile_pic, 
+          user.email, 
+          user.password, 
+          user.created_at,
+          user.is_active,
+          roles,
+          `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${user._id}`
+        )
+      }
+    );
+    const users = await Promise.all(userPromises);
     return { users, ...res.page_info };
   }
 
   
   async getUser(req: any): Promise<any> {
     const res: any = await this.repo.users.getById(req.params.id);
+    const roles: string[] = await this.repo.roles.getRoleByUserId(req.params.id);
     const user : GetUserResDto = new GetUserResDto(
       res._id, 
       res.first_name, 
@@ -53,6 +61,7 @@ export class UserServiceImpl implements UserService {
       res.password, 
       res.created_at,
       res.is_active,
+      roles,
       `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}`
     )
     return user;
