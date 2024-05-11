@@ -22,4 +22,7 @@ const likeSchema : Schema = new Schema({
   is_active: { type: Boolean, required: true, default: true },
 })
 
+// Define compound unique index for user and post fields
+likeSchema.index({ user: 1, post: 1 }, { unique: true });
+
 export default mongoose.model<Like>("Like", likeSchema);
