@@ -53,4 +53,12 @@ export class LikeController {
     res.json(new SuccessResponse("S-10001", likes));
   }
 
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async getByPostId(req: any, res: Response): Promise<void> {
+    const likes: any = await this.likeService.getByPostId(req);
+    res.json(new SuccessResponse("S-10001", likes));
+  }
+
 }

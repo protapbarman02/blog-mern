@@ -22,7 +22,7 @@ export class CommentServiceImpl implements CommentService {
 
   async getComments(req: any): Promise<any> {
     const res: any = await this.repo.comments.get(req);
-    const comment: Comment[] = res.data.map(
+    const comments: Comment[] = res.data.map(
       (comment: any) =>
         new GetCommentResDto(
           comment._id,
@@ -35,7 +35,7 @@ export class CommentServiceImpl implements CommentService {
         )
     );
 
-    return { comment, ...res.page_info };
+    return { comments, ...res.page_info };
   }
 
   async getComment(req: any): Promise<any> {
@@ -70,8 +70,21 @@ export class CommentServiceImpl implements CommentService {
     return comment;
   }
 
-  // async getCommentsByPost(postId: any): Promise<any> {
-  //   const comments: any = await this.repo.comments.getCommentsByPost(postId);
-  //   return comments;
-  // }
+  async getByPostId(req: any): Promise<any> {
+    const res: any = await this.repo.comments.getByPostId(req.params.post_id);
+    const comments: Comment[] = res.map(
+      (comment: any) =>
+        new GetCommentResDto(
+          comment._id,
+          comment.post,
+          comment.author,
+          comment.content,
+          comment.created_at,
+          comment.is_active,
+          `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${comment._id}`
+        )
+    );
+
+    return { comments, ...res.page_info };
+  }
 }

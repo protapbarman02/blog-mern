@@ -61,4 +61,11 @@ export class CommentController {
     res.json(new SuccessResponse("S-10001", comment));
   }
 
+  @catchError
+  // @loginRequired
+  // @roleRequired("customer")
+  async getByPostId(req: any, res: Response): Promise<void> {
+    const comments: any = await this.commentService.getByPostId(req);
+    res.json(new SuccessResponse("S-10001", comments));
+  }
 }

@@ -1,9 +1,13 @@
 import { injectable, inject } from "inversify";
 import { TYPES } from "../../types";
 import { Post } from "../../models/post.model";
+import { Like } from "../../models/like.model";
+import { Comment } from "../../models/comment.model";
 import { Repositories } from "../../dataAccess/repositories";
 import { PostService } from "../post.service";
 import { GetPostResDto } from "../../dtos/post.dto";
+import { GetCommentResDto } from "../../dtos/comment.dto";
+import { GetLikeResDto } from "../../dtos/like.dto";
 
 @injectable()
 export class PostServiceImpl implements PostService {
@@ -22,9 +26,38 @@ export class PostServiceImpl implements PostService {
 
   async getPosts(req: any): Promise<any> {
     const res: any = await this.repo.posts.get(req);
-    const post: Post[] = res.data;/*map(
-      (post: any) =>
-        new GetPostResDto(
+  
+    const postPromises: Promise<any>[] = res.data.map(
+      async (post: any) => {
+        const resComments: any = await this.repo.comments.getByPostId(post._id);
+        
+        const comments: Comment[] = resComments.map(
+          (comment: any) =>
+            new GetCommentResDto(
+              comment._id,
+              comment.post,
+              comment.author,
+              comment.content,
+              comment.created_at,
+              comment.is_active,
+              `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/").replace("posts", "comments")}/${comment._id}`
+            )
+        );
+  
+        const resLikes: any = await this.repo.likes.getByPostId(post._id);
+        
+        const likes: Like[] = resLikes.map(
+          (like: any) =>
+            new GetLikeResDto(
+              like._id,
+              like.user,
+              like.post,
+              like.created_at,
+              like.is_active,
+            )
+        );
+
+        return new GetPostResDto(
           post._id,
           post.author,
           post.title,
@@ -32,14 +65,44 @@ export class PostServiceImpl implements PostService {
           post.images,
           post.created_at,
           post.is_active,
-          `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${post._id}`
-        )
-    );*/
-    return { post, ...res.page_info };
+          `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${post._id}`,
+          comments,
+          likes
+        );
+    });
+  
+    const posts = await Promise.all(postPromises);
+    return { posts, ...res.page_info };
   }
 
   async getPost(req: any): Promise<any> {
     const res: any = await this.repo.posts.getById(req.params.id);
+    const resComments: any = await this.repo.comments.getByPostId(res._id);
+    const comments: Comment[] = resComments.map(
+      (comment: any) =>
+        new GetCommentResDto(
+          comment._id,
+          comment.post,
+          comment.author,
+          comment.content,
+          comment.created_at,
+          comment.is_active,
+          `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/").replace("posts", "comments")}/${comment._id}`
+        )
+    );
+
+    const resLikes: any = await this.repo.likes.getByPostId(req.params.id);
+    const likes: Like[] = resLikes.map(
+      (like: any) =>
+        new GetLikeResDto(
+          like._id,
+          like.user,
+          like.post,
+          like.created_at,
+          like.is_active
+        )
+    );
+
     const post: GetPostResDto = new GetPostResDto(
       res._id,
       res.author,
@@ -48,9 +111,11 @@ export class PostServiceImpl implements PostService {
       res.images,
       res.created_at,
       res.is_active,
-      `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${res._id}`
+      `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${res._id}`,
+      comments,
+      likes
     );
-    
+    return post;
   }
   
   async updateActiveStatus(req: any): Promise<any> {
