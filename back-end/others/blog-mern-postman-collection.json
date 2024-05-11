@@ -25,17 +25,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:3000/api/v1/users?page=1&limit=5&sort=[{\"name\":1}]&search_text=pro",
-							"protocol": "http",
+							"raw": "{{url}}api/v1/users?page=1&limit=1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{url}}api"
 							],
-							"port": "3000",
 							"path": [
-								"api",
 								"v1",
 								"users"
 							],
@@ -46,11 +40,12 @@
 								},
 								{
 									"key": "limit",
-									"value": "5"
+									"value": "1"
 								},
 								{
 									"key": "sort",
-									"value": "[{\"name\":1}]"
+									"value": "[{\"name\":1}]",
+									"disabled": true
 								},
 								{
 									"key": "filter",
@@ -59,7 +54,8 @@
 								},
 								{
 									"key": "search_text",
-									"value": "pro"
+									"value": "pro",
+									"disabled": true
 								}
 							]
 						}
@@ -147,7 +143,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -229,7 +225,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -382,7 +378,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -464,7 +460,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -506,7 +502,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}api/v1/posts",
+							"raw": "{{url}}api/v1/posts?page=1&limit=5",
 							"host": [
 								"{{url}}api"
 							],
@@ -517,13 +513,11 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "1",
-									"disabled": true
+									"value": "1"
 								},
 								{
 									"key": "limit",
-									"value": "5",
-									"disabled": true
+									"value": "5"
 								},
 								{
 									"key": "sort",
@@ -605,14 +599,129 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}api/v1/posts/663a3f6a3a9e84b2dc66b263",
+							"raw": "{{url}}api/v1/posts/663a4490fe79c019e93d9a6a",
 							"host": [
 								"{{url}}api"
 							],
 							"path": [
 								"v1",
 								"posts",
-								"663a3f6a3a9e84b2dc66b263"
+								"663a4490fe79c019e93d9a6a"
+							],
+							"query": [
+								{
+									"key": "comment_page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "comment_limit",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "like_page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "like_limit",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-comments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/posts/663a4490fe79c019e93d9a6a/comments/?comment_page=1&comment_limit=1",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"posts",
+								"663a4490fe79c019e93d9a6a",
+								"comments",
+								""
+							],
+							"query": [
+								{
+									"key": "comment_page",
+									"value": "1"
+								},
+								{
+									"key": "comment_limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-likes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/posts/663a3f6a3a9e84b2dc66b263/likes?like_page=1&like_limit=1",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"posts",
+								"663a3f6a3a9e84b2dc66b263",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "like_page",
+									"value": "1"
+								},
+								{
+									"key": "like_limit",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -626,7 +735,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -635,7 +744,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"is_active\":false\r\n}",
+							"raw": "{\r\n    \"is_active\":true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -708,7 +817,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -750,7 +859,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}api/v1/comments?page=1&limit=5&sort=[{\"name\":1}]&search_text=",
+							"raw": "{{url}}api/v1/comments?page=1&limit=5&sort=[{\"name\":1}]",
 							"host": [
 								"{{url}}api"
 							],
@@ -773,12 +882,139 @@
 								},
 								{
 									"key": "search_text",
-									"value": ""
+									"value": "",
+									"disabled": true
 								},
 								{
 									"key": "filter",
 									"value": "[{\"is_active\":true}]",
 									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/comments/663a5aae443b0f92ff075bcc",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"comments",
+								"663a5aae443b0f92ff075bcc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-post-id-filter",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/comments?page=1&limit=5&sort=[{\"name\":1}]&filter=[{\"post\":\"663a4490fe79c019e93d9a6a\"}]",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"comments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "sort",
+									"value": "[{\"name\":1}]"
+								},
+								{
+									"key": "search_text",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "[{\"post\":\"663a4490fe79c019e93d9a6a\"}]"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-post-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/comments/post/663a4490fe79c019e93d9a6a/?comment_page=1&comment_limit=1",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"comments",
+								"post",
+								"663a4490fe79c019e93d9a6a",
+								""
+							],
+							"query": [
+								{
+									"key": "comment_sort",
+									"value": "[{\"user\":1}]",
+									"disabled": true
+								},
+								{
+									"key": "comment_page",
+									"value": "1"
+								},
+								{
+									"key": "comment_limit",
+									"value": "1"
 								}
 							]
 						}
@@ -830,35 +1066,6 @@
 					"response": []
 				},
 				{
-					"name": "get-by-id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}api/v1/comments/663a5aae443b0f92ff075bcc",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"v1",
-								"comments",
-								"663a5aae443b0f92ff075bcc"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "update-is-active",
 					"request": {
 						"auth": {
@@ -866,7 +1073,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -948,7 +1155,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -990,7 +1197,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}api/v1/likes?page=1&limit=5&sort=[{\"name\":1}]&search_text=",
+							"raw": "{{url}}api/v1/likes?page=1&limit=5",
 							"host": [
 								"{{url}}api"
 							],
@@ -1009,15 +1216,144 @@
 								},
 								{
 									"key": "sort",
-									"value": "[{\"name\":1}]"
+									"value": "[{\"name\":1}]",
+									"disabled": true
 								},
 								{
 									"key": "search_text",
-									"value": ""
+									"value": "",
+									"disabled": true
 								},
 								{
 									"key": "filter",
-									"value": "[{\"is_active\":true}]",
+									"value": "[{\"is_active\":false}]",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/likes/663e36cbc9306b845617c4dd",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"likes",
+								"663e36cbc9306b845617c4dd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-post-id-filter",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/likes?page=1&limit=5&filter=[{\"post\":\"663a3f053a9e84b2dc66b25f\"}]",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "sort",
+									"value": "[{\"name\":1}]",
+									"disabled": true
+								},
+								{
+									"key": "search_text",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "[{\"post\":\"663a3f053a9e84b2dc66b25f\"}]"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-post-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/likes/post/663a3f6a3a9e84b2dc66b263/?like_page=1&like_limit=1",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"likes",
+								"post",
+								"663a3f6a3a9e84b2dc66b263",
+								""
+							],
+							"query": [
+								{
+									"key": "like_page",
+									"value": "1"
+								},
+								{
+									"key": "like_limit",
+									"value": "1"
+								},
+								{
+									"key": "like_sort",
+									"value": "[{\"user\":1}]",
 									"disabled": true
 								}
 							]
@@ -1070,43 +1406,14 @@
 					"response": []
 				},
 				{
-					"name": "get-by-id",
+					"name": "update-is-active",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}api/v1/likes/663e2db64b593c3f18a725d6",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"v1",
-								"likes",
-								"663e2db64b593c3f18a725d6"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update-is-active Copy",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -1123,14 +1430,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}api/v1/likes/663a5a11443b0f92ff075bca",
+							"raw": "{{url}}api/v1/likes/663e36cbc9306b845617c4dd/",
 							"host": [
 								"{{url}}api"
 							],
 							"path": [
 								"v1",
 								"likes",
-								"663a5a11443b0f92ff075bca"
+								"663e36cbc9306b845617c4dd",
+								""
 							]
 						}
 					},
@@ -1144,7 +1452,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5d40d53c9b6b7a2f1925c28ec3f512b1",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]

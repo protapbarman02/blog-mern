@@ -84,7 +84,7 @@ export class CommentRepositoryImpl
             url.indexOf("&", url.indexOf("page=")),
             url.length
           )}`;
-///////////////////////////////////////////////////////
+          
     return {
      data: items, 
      page_info: {

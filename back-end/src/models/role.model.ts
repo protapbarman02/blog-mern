@@ -21,4 +21,7 @@ const roleSchema: Schema = new Schema({
   updated_by : { type: Schema.Types.ObjectId, ref: "users" },
 });
 
+// Define compound unique index for user and post fields
+roleSchema.index({ user_id: 1, role: 1 }, { unique: true });
+
 export default mongoose.model<Role>("Role", roleSchema);
