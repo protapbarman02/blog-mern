@@ -32,7 +32,7 @@ export class PostController {
   // @roleRequired("customer")
   async getPosts(req: any, res: Response): Promise<void> {
     const posts: any = await this.postService.getPosts(req);
-    res.json(new SuccessResponse("S-10001", posts));
+    res.json(new SuccessResponse("200", posts));
   }
 
   @catchError
@@ -40,7 +40,7 @@ export class PostController {
   // @roleRequired("customer")
   async getPost(req: any, res: Response): Promise<void> {
     const posts: any = await this.postService.getPost(req);
-    res.json(new SuccessResponse("S-10001", posts));
+    res.json(new SuccessResponse("200", posts));
   }
 
   @catchError
@@ -48,7 +48,7 @@ export class PostController {
   // @roleRequired("customer")
   async updateActiveStatus(req: any, res: Response): Promise<void> {
     const posts: Post = await this.postService.updateActiveStatus(req);
-    res.json(new SuccessResponse("S-10001", posts));
+    res.json(new SuccessResponse("200", posts));
   }
 
   @catchError
@@ -56,7 +56,7 @@ export class PostController {
   // @roleRequired("customer")
   async delete(req: any, res: Response): Promise<void> {
     const posts: Post = await this.postService.delete(req);
-    res.json(new SuccessResponse("S-10001", posts));
+    res.json(new SuccessResponse("200", posts));
   }
 
   @catchError
@@ -64,7 +64,7 @@ export class PostController {
   // @roleRequired("customer")
   async update(req: any, res: Response): Promise<void> {
     const posts: Post = await this.postService.update(req);
-    res.json(new SuccessResponse("S-10001", posts));
+    res.json(new SuccessResponse("200", posts));
   }
 
   @catchError
@@ -72,7 +72,7 @@ export class PostController {
   // @roleRequired("customer")
   async getCommentsByPostId(req: any, res: Response): Promise<void> {
     const comments: any = await this.commentService.getByPostId(req);
-    res.json(new SuccessResponse("S-10001", comments));
+    res.json(new SuccessResponse("200", comments));
   }
 
   @catchError
@@ -80,7 +80,7 @@ export class PostController {
   // @roleRequired("customer")
   async getLikesByPostId(req: any, res: Response): Promise<void> {
     const likes: any = await this.likeService.getByPostId(req);
-    res.json(new SuccessResponse("S-10001", likes));
+    res.json(new SuccessResponse("200", likes));
   }
 }
 

@@ -17,7 +17,7 @@ export function loginRequired(
         process.env.ACCESS_TOKEN_SECRET as string,
         (err, decoded) => {
           if (err) {
-            throw new Error("E-10010");
+            throw new Error("500");
           }
           req.user = decoded;
         }
@@ -48,7 +48,7 @@ export function roleRequired(...roles: string[]) {
           req.user.roles.filter((role: string) => roles.includes(role))
             .length <= 0
         ) {
-          throw new Error("E-10011");
+          throw new Error("500");
         }
         return originalMethod.apply(this, args);
       } catch (err: any) {
