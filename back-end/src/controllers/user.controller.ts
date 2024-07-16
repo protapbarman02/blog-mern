@@ -25,7 +25,7 @@ export class UserController {
   // @roleRequired("admin")
   async getUsers(req: any, res: Response): Promise<void> {
     const users: any = await this.userService.getUsers(req);
-    res.json(new SuccessResponse("S-10001", users));
+    res.json(new SuccessResponse("200", users));
   }
 
   @catchError
@@ -33,7 +33,7 @@ export class UserController {
   // @roleRequired("customer")
   async getUser(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.getUser(req);
-    res.json(new SuccessResponse("S-10001", user));
+    res.json(new SuccessResponse("200", user));
   }
 
   @catchError
@@ -41,7 +41,7 @@ export class UserController {
   // @roleRequired("customer")
   async updateActiveStatus(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.updateActiveStatus(req);
-    res.json(new SuccessResponse("S-10001", user));
+    res.json(new SuccessResponse("200", user));
   }
 
   @catchError
@@ -49,7 +49,7 @@ export class UserController {
   // @roleRequired("customer")
   async delete(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.delete(req);
-    res.json(new SuccessResponse("S-10001", user));
+    res.json(new SuccessResponse("200", user));
   }
 
   @catchError
@@ -57,7 +57,7 @@ export class UserController {
   // @roleRequired("customer")
   async update(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.update(req);
-    res.json(new SuccessResponse("S-10001", user));
+    res.json(new SuccessResponse("200", user));
   }
 
 }

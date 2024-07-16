@@ -97,7 +97,6 @@ export class BaseRepositoryImpl<Model> implements BaseRepository<Model> {
             url.indexOf("&", url.indexOf("page=")),
             url.length
           )}`;
-    console.log(prev_page)
     
     // next page url
     const next_page =
@@ -109,7 +108,6 @@ export class BaseRepositoryImpl<Model> implements BaseRepository<Model> {
             url.indexOf("&", url.indexOf("page=")),
             url.length
           )}`;
-    console.log(next_page)
 
     return {
       data: items,

@@ -15,7 +15,7 @@ export function catchError(
       const res: Response = args[1];
       res.status(500).json({
         status: "error",
-        status_code: "E-10001",
+        status_code: 500,
         message: error.message,
       });
     }

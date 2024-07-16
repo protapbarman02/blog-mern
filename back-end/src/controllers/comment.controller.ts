@@ -26,7 +26,7 @@ export class CommentController {
   // @roleRequired("customer")
   async getComments(req: any, res: Response): Promise<void> {
     const comments: Comment = await this.commentService.getComments(req);
-    res.json(new SuccessResponse("S-10001", comments));
+    res.json(new SuccessResponse("200", comments));
   }
 
   @catchError
@@ -34,7 +34,7 @@ export class CommentController {
   // @roleRequired("customer")
   async getComment(req: any, res: Response): Promise<void> {
     const comment: Comment = await this.commentService.getComment(req);
-    res.json(new SuccessResponse("S-10001", comment));
+    res.json(new SuccessResponse("200", comment));
   }
 
   @catchError
@@ -42,7 +42,7 @@ export class CommentController {
   // @roleRequired("customer")
   async updateActiveStatus(req: any, res: Response): Promise<void> {
     const comment: Comment = await this.commentService.updateActiveStatus(req);
-    res.json(new SuccessResponse("S-10001", comment));
+    res.json(new SuccessResponse("200", comment));
   }
 
   @catchError
@@ -50,7 +50,7 @@ export class CommentController {
   // @roleRequired("customer")
   async delete(req: any, res: Response): Promise<void> {
     const comment: Comment = await this.commentService.delete(req);
-    res.json(new SuccessResponse("S-10001", comment));
+    res.json(new SuccessResponse("200", comment));
   }
   
   @catchError
@@ -58,16 +58,14 @@ export class CommentController {
   // @roleRequired("customer")
   async update(req: any, res: Response): Promise<void> {
     const comment: Comment = await this.commentService.update(req);
-    res.json(new SuccessResponse("S-10001", comment));
+    res.json(new SuccessResponse("200", comment));
   }
 
   @catchError
   // @loginRequired
   // @roleRequired("customer")
   async getByPostId(req: any, res: Response): Promise<void> {
-    console.log(req.params);
-    console.log(req.query);
     const comments: any = await this.commentService.getByPostId(req);
-    res.json(new SuccessResponse("S-10001", comments));
+    res.json(new SuccessResponse("200", comments));
   }
 }
