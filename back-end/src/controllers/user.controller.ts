@@ -46,7 +46,7 @@ export class UserController {
 
   @catchError
   @loginRequired
-  // @roleRequired("customer")
+  @roleRequired("admin")
   async delete(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.delete(req);
     res.json(new SuccessResponse("200", user));
