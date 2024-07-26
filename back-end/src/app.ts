@@ -8,10 +8,11 @@ import dotenv from "dotenv";
 import postRoutes from "./routes/post.routes";
 import commentRoutes from "./routes/comment.routes";
 import likeRoutes from "./routes/like.routes";
+import cors from 'cors';
 
 const app = express();
 dotenv.config();
-
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 
 // Middleware

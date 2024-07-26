@@ -1,0 +1,425 @@
+==============================
+User Management API Documentation
+==============================
+
+Endpoint: Get Users
+--------------------
+
+Description:
+------------
+This endpoint retrieves a paginated list of users with optional sorting, filtering, and search capabilities. 
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/users
+
+Method:
+-------
+GET
+
+Parameters:
+-----------
+Query Parameters:
+- `page`: Page number for pagination (optional)
+- `sort`: Sorting criteria in JSON format (optional)
+- `filter`: Filtering criteria in JSON format (optional)
+- `search_text`: Text for searching users (optional)
+- `limit`: Number of results per page (optional)
+
+Example Request:
+----------------
+GET http://127.0.0.1:3000/api/v1/users?page=1&sort=[{"first_name":1}]&filter=[{"is_active":true}]&search_text=ar&limit=1
+
+
+Response:
+---------
+Success (200):
+  Headers:
+    Content-Type: application/json
+  Body:
+    {
+      "status": "success",
+      "status_code": "200",
+      "data": {
+        "users": [
+          {
+            "_id": string (MongoDB ObjectId),
+            "first_name": string,
+            "last_name": string,
+            "age": 24,
+            "bio": string,
+            "profile_pic": string,
+            "email": string,
+            "password": string,
+            "created_at": string (ISO 8601 date),
+            "is_active": boolean,
+            "roles": array,
+            "url": string
+          }
+        ],
+        "limit": null | number,
+        "total": null | number,
+        "total_page": null | number,
+        "current_page": null | number,
+        "prev_page": null | string,
+        "next_page": null | string
+      }
+    }
+
+Error (500):
+  Headers:
+    Content-Type: application/json
+  Body:
+    {
+      "status": "error",
+      "status_code": "500",
+    }
+
+Notes:
+------
+- The `users` array contains user objects with details such as `_id`, `first_name`, `last_name`, `age`, `bio`, `profile_pic`, `email`, `created_at`, `is_active`, `roles`, and `url`.
+- Pagination details (`limit`, `total`, `total_page`, `current_page`, `prev_page`, `next_page`) help navigate through the list of users and the next/prev page urls are also returned if pagination applied.
+
+
+
+
+
+
+
+Endpoint: Get User by ID
+-------------------------
+
+Description:
+------------
+This endpoint retrieves a user by their unique ID.
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/users/{user_id}
+
+Method:
+-------
+GET
+
+Parameters:
+-----------
+Path Parameters:
+- `user_id`: Unique identifier of the user
+
+Example Request:
+----------------
+GET http://127.0.0.1:3000/api/v1/users/6696af34849d41970790bb81
+
+Response:
+---------
+Success (200):
+  Headers:
+    Content-Type: application/json
+  Body:
+    {
+      "status": "success",
+      "status_code": "200",
+      "data": {
+        "_id": string (MongoDB ObjectId),
+        "first_name": string,
+        "last_name": string",
+        "age": number,
+        "bio": string,
+        "profile_pic": string,
+        "email": string,
+        "password": string,
+        "created_at": string (ISO 8601 date),
+        "is_active": boolean,
+        "roles": array,
+        "url": string
+      }
+    }
+
+Error (500):
+  Headers:
+    Content-Type: application/json
+  Body:
+    {
+      "status": "error",
+      "status_code": "500",
+    }
+
+Notes:
+-----------
+returned "url" is the endpoint url
+
+
+
+
+
+Endpoint: Create User
+----------------------
+
+Description:
+------------
+This endpoint creates a new user with the provided details.
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/users/
+
+Method:
+-------
+POST
+
+Request Body:
+-------------
+{
+  "first_name": string(required),
+  "last_name": string(required),
+  "age": number,
+  "email": string(required,unique),
+  "password": string(required),
+  "profile_pic": string,
+  "bio": string
+}
+
+Response:
+---------
+Success (200):
+{
+  "status": "success",
+  "status_code": "200",
+  "data": {
+    "first_name": string,
+    "last_name": string,
+    "age": number,
+    "email": string,
+    "password": string,
+    "profile_pic": string,
+    "bio": string,
+    "created_at": string (ISO 8601 date),
+    "is_active": true,
+    "_id": string (MongoDB ObjectId),
+    "__v": 0
+  }
+}
+
+Error (500 - Email Exists):
+{
+  "status": "error",
+  "status_code": 500,
+  "message": "E11000 duplicate key error collection: blogMERN.users index: email_1 dup key: { email: \"string\" }"
+}
+
+Error (500 - Validation failed):
+{
+    "status": "error",
+    "status_code": 500,
+    "message": "User validation failed: first_name: Path `first_name` is required., last_name: Path `last_name` is required., email: Path `email` is required."
+}
+
+Error (500 - Other Errors):
+{
+  "status": "error",
+  "status_code": 500
+}
+
+Notes:
+------
+- If the email provided already exists in the database, a specific error message (`E11000`) is returned.
+- Upon successful creation, detailed user information including `_id`, `created_at`, `is_active`, and `__v` is returned.
+
+
+
+
+
+
+
+
+Endpoint: Update User Active Status
+-----------------------------------
+
+Description:
+------------
+This endpoint updates the active status of a user identified by `{user_id}`. Requires authentication.
+user should have admin/customer role. 
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/users/{user_id}
+
+Method:
+-------
+PATCH
+
+Parameters:
+-----------
+Path Parameters:
+- `user_id`: Unique identifier of the user to update
+
+Request Body:
+-------------
+{
+  "is_active": boolean
+}
+
+Headers:
+--------
+Authorization: Bearer <JWT token>
+
+Response:
+---------
+Success (200):
+{
+  "status": "success",
+  "status_code": "200",
+  "data": {
+    "_id": string (MongoDB ObjectId),
+    "first_name": string,
+    "last_name": string,
+    "age": number,
+    "email": string,
+    "password": string,
+    "profile_pic": string,
+    "bio": string,
+    "created_at": string (ISO 8601 date),
+    "is_active": boolean,
+    "__v": 0
+  }
+}
+
+Error (500 - Standard Errors):
+{
+  "status": "error",
+  "status_code": 500
+}
+
+Notes:
+------
+- The `PATCH` request updates the `is_active` field of the user identified by `user_id`.
+- Requires authentication via JWT token in the `Authorization` header.
+- Requires `admin` or `customer` role(no need to include in the request).
+- Request body should include a JSON object with the `is_active` field set to `true` or `false`.
+- Upon successful update, the response includes detailed user information with the updated `is_active` status.
+
+
+
+
+
+
+
+
+Endpoint: Update User
+----------------------
+
+Description:
+------------
+This endpoint updates user details. 
+Requires authentication and specific roles (`admin` or `customer`).
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/users/
+
+Method:
+-------
+PUT
+
+Request Body:
+-------------
+{
+  "_id": string (required),
+  "first_name": string,
+  "last_name": string,
+  "age": number,
+  "email": string,
+  "password": string,
+  "profile_pic": string,
+  "bio": string,
+  "is_active": boolean
+}
+
+Headers:
+--------
+Authorization: Bearer <JWT token>
+
+Response:
+---------
+Success (200):
+{
+  "status": "success",
+  "status_code": "200",
+  "data": {
+    "_id": string (MongoDB ObjectId),
+    "first_name": string,
+    "last_name": string,
+    "age": number,
+    "email": string,
+    "password": string,
+    "profile_pic": string,
+    "bio": string,
+    "created_at": string (ISO 8601 date),
+    "is_active": boolean,
+    "__v": 0,
+    "updated_at": string (ISO 8601 date),
+    "updated_by": string
+  }
+}
+
+Error (500 - Standard Error):
+{
+  "status": "error",
+  "status_code": 500
+}
+
+
+
+
+
+Endpoint: Delete User
+----------------------
+
+Description:
+------------
+This endpoint deletes a user identified by `{user_id}`. Requires authentication and specific role (`admin`).
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/users/{user_id}
+
+Method:
+-------
+DELETE
+
+Parameters:
+-----------
+Path Parameters:
+- `user_id`: Unique identifier of the user to delete
+
+Headers:
+--------
+Authorization: Bearer <JWT token>
+
+Response:
+---------
+Success (200):
+{
+  "status": "success",
+  "status_code": "200",
+  "data": {
+    "_id": string (MongoDB ObjectId),
+    "first_name": string,
+    "last_name": string,
+    "age": number,
+    "email": string,
+    "password": string,
+    "profile_pic": string,
+    "bio": string,
+    "created_at": string (ISO 8601 date),
+    "is_active": boolean,
+    "__v": 0
+  }
+}
+
+
+Error (500 - Standar Errors):
+{
+  "status": "error",
+  "status_code": 500
+}

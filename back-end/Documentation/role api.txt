@@ -1,0 +1,450 @@
+==============================
+Role Management API Documentation
+==============================
+
+Endpoint: Get Roles
+--------------------
+
+Description:
+------------
+This endpoint retrieves a list of roles with optional filtering, sorting, and pagination. Requires `admin` role.
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/roles
+
+Method:
+-------
+GET
+
+Parameters:
+-----------
+Query Parameters:
+- `page`: Page number for pagination (optional)
+- `limit`: Number of results per page (optional)
+- `sort`: Sorting criteria as a JSON string (optional)
+- `search_text`: Text to search within roles (optional)
+- `filter`: Filtering criteria as a JSON string (optional)
+
+sample url:
+http://127.0.0.1:3000/api/v1/roles?page=1&limit=5&sort=[{"name":1}]&search_text=&filter=[{"is_active":true}]
+
+Headers:
+--------
+Authorization: Bearer <JWT token>
+
+Response:
+---------
+Success (200):
+{
+    "status": "success",
+    "status_code": "200",
+    "data": {
+        "roles": [
+            {
+                "_id": "string",
+                "user_id": "string",
+                "role": "string",
+                "is_active": boolean,
+                "created_at": "string (ISO 8601 date)"
+            }
+        ],
+        "limit": number (nullable),
+        "total": number,
+        "total_page": number (nullable),
+        "current_page": number (nullable),
+        "prev_page": string (nullable),
+        "next_page": string (nullable)
+    }
+}
+
+Error (500 - Standard Error):
+{
+  "status": "error",
+  "status_code": 500
+}
+
+Notes:
+------
+- The `GET` request retrieves a list of roles based on optional filters, sorting, and pagination parameters.
+- Requires authentication via JWT token in the `Authorization` header.
+- Requires `admin` role.
+- Query parameters allow for flexible filtering, sorting, and pagination of results.
+- Upon successful retrieval, the response includes role details and pagination information.
+
+
+
+
+
+
+Endpoint: Get Role by ID
+------------------------
+
+Description:
+------------
+This endpoint retrieves the details of a role identified by `{role_id}`. Requires `admin` role.
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/roles/{role_id}
+
+Method:
+-------
+GET
+
+Parameters:
+-----------
+Path Parameters:
+- `role_id`: Unique identifier of the role to retrieve
+
+Headers:
+--------
+Authorization: Bearer <JWT token>
+
+Response:
+---------
+Success (200):
+{
+    "status": "success",
+    "status_code": "200",
+    "data": {
+        "_id": "string",
+        "user_id": "string",
+        "role": "string",
+        "is_active": boolean,
+        "created_at": "string (ISO 8601 date)"
+    }
+}
+
+
+Error (500 - Other Errors):
+{
+  "status": "error",
+  "status_code": 500
+}
+
+Notes:
+------
+- The `GET` request retrieves the details of the role identified by `role_id`.
+- Requires authentication via JWT token in the `Authorization` header.
+- Requires `admin` role, which is checked in the database.
+
+
+
+
+
+Endpoint: Get Roles by User ID
+------------------------------
+
+Description:
+------------
+This endpoint retrieves the roles associated with a specific user identified by `{user_id}`. Requires `admin` role.
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/roles/user/{user_id}
+
+Method:
+-------
+GET
+
+Parameters:
+-----------
+Path Parameters:
+- `user_id`: Unique identifier of the user whose roles are to be retrieved
+
+Headers:
+--------
+Authorization: Bearer <JWT token>
+
+Response:
+---------
+Success (200):
+{
+    "status": "success",
+    "status_code": "200",
+    "data": [
+        "role1",
+        "role2",
+        ...
+    ]
+}
+
+Error (500 - Other Errors):
+{
+  "status": "error",
+  "status_code": 500
+}
+
+Notes:
+------
+- The `GET` request retrieves the roles associated with the user identified by `user_id`.
+- Requires authentication via JWT token in the `Authorization` header.
+- Requires `admin` role, which is checked in the database.
+- Upon successful retrieval, the response includes a list of roles associated with the user.
+
+
+
+
+
+
+
+
+
+Endpoint: Create Role
+---------------------
+
+Description:
+------------
+This endpoint creates a new role for a user. Requires `admin` role.
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/roles/
+
+Method:
+-------
+POST
+
+Headers:
+--------
+Content-Type: application/json
+Authorization: Bearer <JWT token>
+
+Request Body:
+-------------
+{
+  "user_id": "string(required)",
+  "role": "string(required)",
+  "is_active": boolean(required)
+}
+
+Response:
+---------
+Success (200):
+{
+    "user_id": "string",
+    "role": "string",
+    "is_active": boolean,
+    "created_at": "string (ISO 8601 date)",
+    "created_by": "string",
+    "_id": "string",
+    "__v": 0
+}
+
+Error (500 - Other Errors):
+{
+  "status": "error",
+  "status_code": 500
+}
+
+Notes:
+------
+- The `POST` request creates a new role for a user with the provided details.
+- Requires authentication via JWT token in the `Authorization` header.
+- Requires `admin` role, which is checked in the database.
+- The request body must include `user_id`, `role`, and `is_active`.
+- Upon successful creation, the response includes the new role details.
+
+
+
+
+
+
+
+
+Endpoint: Delete Role
+---------------------
+
+Description:
+------------
+This endpoint deletes a role identified by `{role_id}`. Requires `admin` role.
+
+URL:
+---
+{{url}}api/v1/roles/{role_id}
+
+Method:
+-------
+DELETE
+
+Parameters:
+-----------
+Path Parameters:
+- `role_id`: Unique identifier of the role to delete
+
+Headers:
+--------
+Authorization: Bearer <JWT token>
+
+Response:
+---------
+Success (200):
+{
+    "status": "success",
+    "status_code": "200",
+    "data": {
+        "_id": "string",
+        "user_id": "string",
+        "role": "string",
+        "is_active": boolean,
+        "created_at": "string (ISO 8601 date)",
+        "created_by": "string",
+        "__v": 0
+    }
+}
+
+Error (500 - Other Errors):
+{
+  "status": "error",
+  "status_code": 500
+}
+
+Notes:
+------
+- The `DELETE` request deletes the role identified by `role_id`.
+- Requires authentication via JWT token in the `Authorization` header.
+- Requires `admin` role, which is checked in the database.
+- Upon successful deletion, the response includes the details of the deleted role.
+
+
+
+
+
+
+
+
+
+
+
+
+Endpoint: Update Role is_active
+-------------------------------
+
+Description:
+------------
+This endpoint updates the `is_active` status of a role identified by `{role_id}`. Requires `admin` role.
+
+URL:
+---
+{{url}}api/v1/roles/{role_id}
+
+Method:
+-------
+PATCH
+
+Parameters:
+-----------
+Path Parameters:
+- `role_id`: Unique identifier of the role to update
+
+Headers:
+--------
+Content-Type: application/json
+Authorization: Bearer <JWT token>
+
+Request Body:
+-------------
+{
+    "is_active": boolean
+}
+
+Response:
+---------
+Success (200):
+{
+    "status": "success",
+    "status_code": "200",
+    "data": {
+        "_id": "string",
+        "user_id": "string",
+        "role": "string",
+        "is_active": boolean,
+        "created_at": "string (ISO 8601 date)",
+        "created_by": "string",
+        "__v": 0
+    }
+}
+
+Error (500 - Other Errors):
+{
+  "status": "error",
+  "status_code": 500
+}
+
+Notes:
+------
+- The `PATCH` request updates the `is_active` status of the role identified by `role_id`.
+- Requires authentication via JWT token in the `Authorization` header.
+- Requires `admin` role, which is checked in the database.
+- The request body must include the `is_active` field.
+- Upon successful update, the response includes the updated role details.
+
+
+
+
+
+
+
+
+Endpoint: Update Role
+---------------------
+
+Description:
+------------
+This endpoint updates the details of a role. Requires `admin` role.
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/roles/
+
+Method:
+-------
+PUT
+
+Headers:
+--------
+Content-Type: application/json
+Authorization: Bearer <JWT token>
+
+Request Body:
+-------------
+{
+  "_id": "string",        // The unique identifier of the role
+  "user_id": "string",    // The unique identifier of the user associated with the role
+  "role": "string",       // The role name (e.g., "admin", "user", "customer")
+  "is_active": true       // Boolean indicating if the role is active
+}
+
+Response:
+---------
+Success (200):
+{
+    "status": "success",
+    "status_code": "200",
+    "data": {
+        "_id": "string",
+        "user_id": "string",
+        "role": "string",
+        "is_active": true,
+        "created_at": "string (ISO 8601 date)",
+        "created_by": "string",
+        "__v": 0,
+        "updated_at": "string (ISO 8601 date)",
+        "updated_by": "string"
+    }
+}
+
+Error (500 - Other Errors):
+{
+  "status": "error",
+  "status_code": 500
+}
+
+Notes:
+------
+- The `PUT` request updates the details of the role specified in the request body.
+- Requires authentication via JWT token in the `Authorization` header.
+- Requires `admin` role, which is checked in the database.
+- The request body must include the `_id`, `user_id`, `role`, and `is_active` fields.
+- Upon successful update, the response includes the updated role details, including timestamps for creation and last update.
