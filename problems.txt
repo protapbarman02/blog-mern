@@ -1,0 +1,18 @@
+user should be assigned as a customer upon user successfull creation
+
+posts>get-comments>
+	comment url : "/v1/posts/663a4490fe79c019e93d9a6a/comments/663a5a11443b0f92ff075bca"
+
+posts>get-by-id>
+	comment-url : "/v1/posts/663a4490fe79c019e93d9a6a/663a5a11443b0f92ff075bca"
+
+comments>get-by-post-id>
+	comment-url : "/v1/comments/post/663a4490fe79c019e93d9a6a/663a5a11443b0f92ff075bca"
+
+
+
+
+actual comment-url:
+	 "/v1/comments/663a5a11443b0f92ff075bca"
+
+

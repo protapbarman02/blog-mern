@@ -1,0 +1,67 @@
+======================================
+Auth Service API Documentation - Login
+======================================
+
+Description:
+-----------
+This endpoint allows a user to log in by providing their email and password. Upon successful authentication, it returns a JWT token and user details.
+
+URL:
+---
+http://127.0.0.1:3000/api/v1/auth/login
+
+Method:
+-------
+POST
+
+Request:
+--------
+Headers:
+  Content-Type: application/json
+
+Body:
+  {
+    "email": "string",
+    "password": "string"
+  }
+
+Response:
+---------
+Success (200):
+  Headers:
+    Content-Type: application/json
+  Body:
+    {
+      "status": "success",
+      "status_code": "200",
+      "data": {
+        "token": "jwt_token",
+        "user": {
+          "_id": "string",
+          "first_name": "string",
+          "last_name": "string",
+          "age": "number",
+          "email": "string",
+          "password": "string",
+          "profile_pic": "string",
+          "bio": "string",
+          "created_at": "datetime",
+          "is_active": "boolean",
+          "__v": "number"
+        }
+      }
+    }
+
+Error (500):
+  Headers:
+    Content-Type: application/json
+  Body:
+    {
+      "status": "error",
+      "status_code": "500",
+    }
+
+Notes:
+------
+- Ensure that you store the JWT token securely.
+- The Authorization header must include the token for accessing protected routes(will be documented in the respected apis).
