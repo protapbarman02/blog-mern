@@ -26,7 +26,7 @@ export class LikeController {
   // @roleRequired("customer")
   async getLikes(req: any, res: Response): Promise<void> {
     const likes: Like = await this.likeService.getLikes(req);
-    res.json(new SuccessResponse("200", likes));
+    res.json(new SuccessResponse(200, likes));
   }
 
   @catchError
@@ -34,7 +34,7 @@ export class LikeController {
   // @roleRequired("customer")
   async getLike(req: any, res: Response): Promise<void> {
     const like: Like = await this.likeService.getLike(req);
-    res.json(new SuccessResponse("200", like));
+    res.json(new SuccessResponse(200, like));
   }
 
   @catchError
@@ -42,7 +42,7 @@ export class LikeController {
   // @roleRequired("customer")
   async updateActiveStatus(req: any, res: Response): Promise<void> {
     const like: Like = await this.likeService.updateActiveStatus(req);
-    res.json(new SuccessResponse("200", like));
+    res.json(new SuccessResponse(200, like));
   }
 
   @catchError
@@ -50,7 +50,7 @@ export class LikeController {
   // @roleRequired("customer")
   async delete(req: any, res: Response): Promise<void> {
     const like: Like = await this.likeService.delete(req);
-    res.json(new SuccessResponse("200", like));
+    res.json(new SuccessResponse(200, like));
   }
 
   @catchError
@@ -58,7 +58,7 @@ export class LikeController {
   // @roleRequired("customer")
   async getByPostId(req: any, res: Response): Promise<void> {
     const likes: any = await this.likeService.getByPostId(req);
-    res.json(new SuccessResponse("200", likes));
+    res.json(new SuccessResponse(200, likes));
   }
 
 }

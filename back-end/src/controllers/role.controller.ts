@@ -27,7 +27,7 @@ export class RoleController {
   @roleRequired("admin")
   async getRoles(req: any, res: Response): Promise<void> {
     const roles: Role = await this.roleService.getRoles(req);
-    res.json(new SuccessResponse("200", roles));
+    res.json(new SuccessResponse(200, roles));
   }
 
   
@@ -36,7 +36,7 @@ export class RoleController {
   @roleRequired("admin")
   async getRole(req: any, res: Response): Promise<void> {
     const role: Role = await this.roleService.getRole(req);
-    res.json(new SuccessResponse("200", role));
+    res.json(new SuccessResponse(200, role));
   }
 
   @catchError
@@ -44,7 +44,7 @@ export class RoleController {
   @roleRequired("admin")
   async updateActiveStatus(req: any, res: Response): Promise<void> {
     const role: Role = await this.roleService.updateActiveStatus(req);
-    res.json(new SuccessResponse("200", role));
+    res.json(new SuccessResponse(200, role));
   }
 
   @catchError
@@ -52,7 +52,7 @@ export class RoleController {
   @roleRequired("admin")
   async delete(req: any, res: Response): Promise<void> {
     const role: Role = await this.roleService.delete(req);
-    res.json(new SuccessResponse("200", role));
+    res.json(new SuccessResponse(200, role));
   }
 
   @catchError
@@ -60,7 +60,7 @@ export class RoleController {
   @roleRequired("admin")
   async update(req: any, res: Response): Promise<void> {
     const role: Role = await this.roleService.update(req);
-    res.json(new SuccessResponse("200", role));
+    res.json(new SuccessResponse(200, role));
   }
 
   @catchError
@@ -68,7 +68,7 @@ export class RoleController {
   @roleRequired("admin")
   async getRoleByUserId(req: any, res: Response): Promise<void> {
     const role: Role = await this.roleService.getRoleByUserId(req);
-    res.json(new SuccessResponse("200", role));
+    res.json(new SuccessResponse(200, role));
   }
 
 }
