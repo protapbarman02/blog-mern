@@ -17,14 +17,14 @@ export function loginRequired(
         process.env.ACCESS_TOKEN_SECRET as string,
         (err, decoded) => {
           if (err) {
-            throw new Error("500");
+            throw new Error("Unauthorized Access");
           }
           req.user = decoded;
         }
       );
       return originalMethod.apply(this, args);
     } catch (err: any) {
-      res.status(403).json(new ErrorResponse(err.message));
+      res.status(401).json(new ErrorResponse(401,err.message));
     }
   };
 
@@ -48,11 +48,11 @@ export function roleRequired(...roles: string[]) {
           req.user.roles.filter((role: string) => roles.includes(role))
             .length <= 0
         ) {
-          throw new Error("500");
+          throw new Error("Permission Denied");
         }
         return originalMethod.apply(this, args);
       } catch (err: any) {
-        res.status(401).json(new ErrorResponse(err.message));
+        res.status(403).json(new ErrorResponse(403,err.message));
       }
     };
 

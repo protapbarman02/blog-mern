@@ -21,7 +21,7 @@ export class AuthServiceImpl implements AuthService {
     const user: User = await this.repo.users.getByEmail(email);
 
     // check password
-    if (user?.password != password) return new ErrorResponse("500");
+    if (user?.password != password) return new ErrorResponse(401, "Invalid Credentials");
 
     // get user roles
     const roles: string[] = await this.repo.roles.getRoleByUserId(user.id);
@@ -31,6 +31,6 @@ export class AuthServiceImpl implements AuthService {
       process.env.ACCESS_TOKEN_SECRET as string
     );
 
-    return new SuccessResponse("200", { token, user });
+    return new SuccessResponse(200, { token, user });
   }
 }

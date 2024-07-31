@@ -3,6 +3,7 @@ import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
 import { User } from "../models/user.model";
 import { UserService } from "../services/user.service";
+import { RoleService } from "../services/role.service";
 import { catchError } from "../utils/error.handler";
 import { SuccessResponse } from "../dtos/common.dto";
 import { loginRequired, roleRequired } from "../utils/auth.helper";
@@ -17,7 +18,7 @@ export class UserController {
   @catchError
   async createUser(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.createUser(req);
-    res.status(201).json(user);
+    res.json(new SuccessResponse(201,user));
   }
 
   @catchError
@@ -25,7 +26,7 @@ export class UserController {
   // @roleRequired("admin")
   async getUsers(req: any, res: Response): Promise<void> {
     const users: any = await this.userService.getUsers(req);
-    res.json(new SuccessResponse("200", users));
+    res.json(new SuccessResponse(200, users));
   }
 
   @catchError
@@ -33,7 +34,7 @@ export class UserController {
   // @roleRequired("customer")
   async getUser(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.getUser(req);
-    res.json(new SuccessResponse("200", user));
+    res.json(new SuccessResponse(200, user));
   }
 
   @catchError
@@ -41,7 +42,7 @@ export class UserController {
   // @roleRequired("customer")
   async updateActiveStatus(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.updateActiveStatus(req);
-    res.json(new SuccessResponse("200", user));
+    res.json(new SuccessResponse(200, user));
   }
 
   @catchError
@@ -49,7 +50,7 @@ export class UserController {
   @roleRequired("admin")
   async delete(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.delete(req);
-    res.json(new SuccessResponse("200", user));
+    res.json(new SuccessResponse(200, user));
   }
 
   @catchError
@@ -57,7 +58,7 @@ export class UserController {
   // @roleRequired("customer")
   async update(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.update(req);
-    res.json(new SuccessResponse("200", user));
+    res.json(new SuccessResponse(200, user));
   }
 
 }
