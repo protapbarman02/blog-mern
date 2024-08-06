@@ -26,11 +26,11 @@ export class AuthServiceImpl implements AuthService {
     // get user roles
     const roles: string[] = await this.repo.roles.getRoleByUserId(user.id);
 
-    const token = jwt.sign(
-      { userId: user.id, email: user.email, roles: roles },
-      process.env.ACCESS_TOKEN_SECRET as string
-    );
-
+    // const token = jwt.sign(
+    //   { userId: user.id, email: user.email, roles: roles },
+    //   process.env.ACCESS_TOKEN_SECRET as string
+    // );
+    const token = "abcd";
     return new SuccessResponse(200, { token, user });
   }
 }
