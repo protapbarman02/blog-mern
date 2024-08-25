@@ -14,7 +14,7 @@ export interface Role extends Document {
 const roleSchema: Schema = new Schema({
   user_id: { type: String, required: true },
   role: { type: String, required: true },
-  is_active: { type: Boolean, required: true, default: true },
+  is_active: { type: Boolean, default: true },
   created_at : { type : Date, default : Date.now },
   created_by : { type: Schema.Types.ObjectId, ref: "users", required : true },
   updated_at : { type : Date },

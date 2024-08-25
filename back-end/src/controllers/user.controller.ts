@@ -12,13 +12,26 @@ import { loginRequired, roleRequired } from "../utils/auth.helper";
 export class UserController {
   constructor(
     @inject(TYPES.UserService)
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    @inject(TYPES.RoleService)
+    private roleService: RoleService
+  ) { }
 
   @catchError
   async createUser(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.createUser(req);
-    res.json(new SuccessResponse(201,user));
+    const roleData = {
+      body: {
+        user_id: user._id,
+        role: 'customer',
+      },
+      user:{
+        userId:user._id
+      }
+    };
+    await this.roleService.createRole(roleData);
+
+    res.json(new SuccessResponse(201, user));
   }
 
   @catchError
@@ -50,6 +63,7 @@ export class UserController {
   @roleRequired("admin")
   async delete(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.delete(req);
+    await this.roleService.deleteRolesByUserId(user._id);
     res.json(new SuccessResponse(200, user));
   }
 

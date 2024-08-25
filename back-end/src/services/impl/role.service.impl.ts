@@ -69,4 +69,17 @@ export class RoleServiceImpl implements RoleService {
     const res: any = await this.repo.roles.getRoleByUserId(req.params.id);
     return res;
   }
+
+  async deleteRolesByUserId(id: any): Promise<any> {
+    const roles = await this.getRolesByUserIdFullData(id);
+    
+    for (const role of roles) {
+      await this.repo.roles.delete(role.id); 
+    }
+  }
+
+  async getRolesByUserIdFullData(id: any): Promise<any> {
+    const res: any = await this.repo.roles.getRolesByUserIdFullData(id);
+    return res;
+  }
 }

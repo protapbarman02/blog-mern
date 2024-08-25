@@ -17,7 +17,7 @@ export function loginRequired(
         process.env.ACCESS_TOKEN_SECRET as string,
         (err, decoded) => {
           if (err) {
-            throw new Error("Unauthorized Access");
+            throw new Error("Unauthenticated User");
           }
           req.user = decoded;
         }
@@ -48,7 +48,7 @@ export function roleRequired(...roles: string[]) {
           req.user.roles.filter((role: string) => roles.includes(role))
             .length <= 0
         ) {
-          throw new Error("Permission Denied");
+          throw new Error("Unauthorized User");
         }
         return originalMethod.apply(this, args);
       } catch (err: any) {

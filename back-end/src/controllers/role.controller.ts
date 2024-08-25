@@ -71,4 +71,10 @@ export class RoleController {
     res.json(new SuccessResponse(200, role));
   }
 
+  @catchError
+  async getRolesByUserIdFullData(req: any, res: Response): Promise<void> {
+    const role: Role = await this.roleService.getRolesByUserIdFullData(req);
+    res.json(new SuccessResponse(200, role));
+  }
+
 }
