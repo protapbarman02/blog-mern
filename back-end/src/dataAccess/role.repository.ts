@@ -4,4 +4,5 @@ import { BaseRepository } from "./base.repository";
 
 export interface RoleRepository extends BaseRepository<Role> {
   getRoleByUserId(userId: ObjectId): Promise<string[]>;
+  getRolesByUserIdFullData(userId: ObjectId): Promise<any[]>;
 }

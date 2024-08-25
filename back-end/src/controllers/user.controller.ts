@@ -63,6 +63,7 @@ export class UserController {
   @roleRequired("admin")
   async delete(req: any, res: Response): Promise<void> {
     const user: User = await this.userService.delete(req);
+    await this.roleService.deleteRolesByUserId(user._id);
     res.json(new SuccessResponse(200, user));
   }
 

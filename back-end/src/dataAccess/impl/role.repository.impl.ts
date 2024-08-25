@@ -16,4 +16,10 @@ export class RoleRepositoryImpl
       await this.entity.find({ user_id: userId }).select("role -_id")
     ).map((result: any) => result.role);
   }
+
+
+  async getRolesByUserIdFullData(userId: Schema.Types.ObjectId): Promise<any> {
+      return await this.entity.find({ user_id: userId });
+  }
+  
 }
