@@ -56,6 +56,8 @@ export class PostServiceImpl implements PostService {
             )
         );
 
+        const user: any = await this.repo.users.getById(post.author);
+
         return new GetPostResDto(
           post._id,
           post.author,
@@ -66,7 +68,8 @@ export class PostServiceImpl implements PostService {
           post.is_active,
           `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}/${post._id}`,
           { comments, total:resComments.totalCount },
-          { likes, total:resLikes.totalCount }
+          { likes, total:resLikes.totalCount },
+          { user}
         );
     });
   
@@ -102,6 +105,8 @@ export class PostServiceImpl implements PostService {
         )
     );
 
+    const user: any = await this.repo.users.getById(res.author);
+
     const post: GetPostResDto = new GetPostResDto(
       res._id,
       res.author,
@@ -112,7 +117,8 @@ export class PostServiceImpl implements PostService {
       res.is_active,
       `${req.originalUrl.split("?")[0].replace(/^\/api\//, "/")}`,
       { comments, ...resComments.page_info },
-      { likes, ...resLikes.page_info }
+      { likes, ...resLikes.page_info },
+      { user}
     );
     return post;
   }
