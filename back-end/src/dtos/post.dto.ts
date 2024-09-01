@@ -16,6 +16,9 @@ export class GetPostResDto {
   @IsObject()
   public likes: object;
 
+  @IsObject()
+  public user: object;
+
   @IsString()
   public title: string;
 
@@ -31,13 +34,14 @@ export class GetPostResDto {
   @IsString()
   public url: string;
 
-  constructor(_id:string, author: string,  title: string, content: string, images: string[], created_at:Date, is_active:Boolean, url : string, comments:object, likes:object) {
+  constructor(_id:string, author: string,  title: string, content: string, images: string[], created_at:Date, is_active:Boolean, url : string, comments:object, likes:object, user:object) {
     this._id = _id,
     this.author = author;
     this.content = content;
     this.images = images;
     this.comments = comments;
     this.likes = likes;
+    this.user = user;
     this.title = title;
     this.created_at = created_at;
     this.is_active = is_active;

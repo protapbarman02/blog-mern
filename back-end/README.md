@@ -7,3 +7,7 @@
 > npm i
 
 > npm start
+
+# documentation
+
+https://documenter.getpostman.com/view/33100685/2sA3kbheDC
